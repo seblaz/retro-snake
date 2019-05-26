@@ -16,12 +16,19 @@ class Snake:
 		initial_center = [(int)(width/2), (int)(height/2)]
 		head = [initial_center[0]+2, initial_center[1]+2]
 		tail = [initial_center[0]-2, initial_center[1]-2]
-		self.snake = [head, tail,]
+		self.snake = [head, tail]
 	
 	def render(self):
 		with self.canvas as draw:
 			draw.line(self.snake)
 
+	def to_tuple(x):
+		if x == None:
+			return ()
+		if type(x) != list:
+			return x
+		a, b = x
+		return (to_tuple(a),) + to_tuple(b)
 
 
 # snake = [[4,10], [4,9], [4,8]]                                     # Initial snake co-ordinates

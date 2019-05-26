@@ -1,3 +1,4 @@
+from time import sleep
 import random
 import sys
 
@@ -14,21 +15,17 @@ class Snake:
 		self.canvas = get_canvas()
 		self.key = "right"
 		initial_center = [(int)(width/2), (int)(height/2)]
-		head = [initial_center[0]+2, initial_center[1]+2]
-		tail = [initial_center[0]-2, initial_center[1]-2]
+		head = [initial_center[0]+2, initial_center[1]]
+		tail = [initial_center[0]-2, initial_center[1]]
 		self.snake = [head, tail]
 	
 	def render(self):
 		with self.canvas as draw:
-			draw.line(self.snake)
+			draw.line(to_tuple(self.snake), fill="white")
+		sleep(10)
 
-	def to_tuple(x):
-		if x == None:
-			return ()
-		if type(x) != list:
-			return x
-		a, b = x
-		return (to_tuple(a),) + to_tuple(b)
+def to_tuple(t):
+    return tuple(map(to_tuple, t)) if isinstance(t, (list, tuple)) else t
 
 
 # snake = [[4,10], [4,9], [4,8]]                                     # Initial snake co-ordinates

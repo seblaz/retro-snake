@@ -1,2 +1,3 @@
+luma.core
 luma.led_matrix
 luma.emulator

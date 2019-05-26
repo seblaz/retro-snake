@@ -22,7 +22,7 @@ def demo(n, block_orientation, rotate, inreverse):
     # show_message(device, msg, fill="white", font=proportional(CP437_FONT))
     while True:
         with canvas(device) as draw:
-            draw.ellipse((1, 1, 7, 7))
+            draw.text((1, 1), "H", fill="white")
     time.sleep(1)
 
 try:

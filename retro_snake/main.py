@@ -1,3 +1,4 @@
 from retro_snake.snake import Snake
 
-Snake().render()
+
+Snake(8, 8).render()

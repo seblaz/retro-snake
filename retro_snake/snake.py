@@ -12,10 +12,11 @@ from retro_snake.matriz import get_canvas
 class Snake:
 
 	def __init__(self, width=8, height=8):
-		self.canvas = get_canvas()
+		self.canvas = get_canvas(width, height)
 		self.key = "right"
+		
 		initial_center = [(int)(width/2), (int)(height/2)]
-		head = [initial_center[0]+2, initial_center[1]]
+		head = [initial_center[0]+1, initial_center[1]]
 		tail = [initial_center[0]-2, initial_center[1]]
 		self.snake = [head, tail]
 	

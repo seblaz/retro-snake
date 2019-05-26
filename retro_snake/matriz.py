@@ -8,6 +8,5 @@ from luma.core.render import canvas
 def get_canvas():
     # create matrix device
     serial = spi(port=0, device=0, gpio=noop())
-    device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation,
-                     rotate=rotate or 0, blocks_arranged_in_reverse_order=inreverse)
+    device = max7219(serial, cascaded=1)
     return canvas(device)

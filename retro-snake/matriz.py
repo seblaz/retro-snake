@@ -20,8 +20,9 @@ def demo(n, block_orientation, rotate, inreverse):
     print(msg)
 
     # show_message(device, msg, fill="white", font=proportional(CP437_FONT))
-    with canvas(device) as draw:
-        draw.ellipse((1, 1, 7, 7))
+    while True:
+        with canvas(device) as draw:
+            draw.ellipse((1, 1, 7, 7))
     time.sleep(1)
 
 try:

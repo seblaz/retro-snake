@@ -1,9 +1,7 @@
 import random
 import sys
-from pygame.locals import *
 
-from retro-snake.matriz import get_canvas
-from luma.core.render import canvas
+from retro_snake.matriz import get_canvas
 
 
 # SNAKES GAME
@@ -15,12 +13,12 @@ class Snake:
 	def __init__(self, width=8, height=8):
 		self.canvas = get_canvas()
 		self.key = "right"
-		initial_center = [(int) width/2, (int) height/2]
+		initial_center = [(int)(width/2), (int)(height/2)]
 		head = [initial_center[0]+2, initial_center[1]+2]
 		tail = [initial_center[0]-2, initial_center[1]-2]
 		self.snake = [head, tail,]
 	
-	def render():
+	def render(self):
 		with self.canvas as draw:
 			draw.line(self.snake)
 

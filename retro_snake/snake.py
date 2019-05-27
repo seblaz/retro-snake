@@ -1,8 +1,13 @@
 from time import sleep
+import threading
+import asyncio
 import random
 import sys
 
+import pygame
+
 from retro_snake.matriz import get_canvas
+
 
 
 # SNAKES GAME
@@ -11,12 +16,17 @@ from retro_snake.matriz import get_canvas
 
 class Snake:
 
+	RIGHT = (1, 0)
+	LEFT = (-1, 0)
+	UP = (0, -1)
+	DOWN = (0, 1)
+
 	def __init__(self, width=8, height=8):
 		# canvas: https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html#module-PIL.ImageDraw
 		self.width = width
 		self.height = height
 		self.canvas = get_canvas(width, height)
-		self.direccion = (1, 0)  # right
+		self.direccion = self.RIGHT
 		self.finalizar = False
 		
 		center_width = (int)(width/2)
@@ -24,42 +34,48 @@ class Snake:
 		head = (center_width, center_height)
 		center = (center_width - 1, center_height)
 		tail = (center_width - 2, center_height)
-		self.snake = (tail, center, head)
+		self.snake = [head, center, tail]
 		self.food = (2, 2)
 	
 	def render(self):
 		with self.canvas as draw:
-			# draw.line(to_tuple(self.snake), fill="white")
-			# draw.point(to_tuple(self.food), fill="white")
-			# draw.line(self.snake, fill="white")
-			# draw.point(self.food, fill="white")
+			draw.rectangle(((0, 0), draw.im.size), fill="black", outline="black")
 			for point in self.snake:
 				draw.point(point, fill="white")
 
 	
-	def update(self):
-		new_snake = ()
-		for point in self.snake:
-			point = add_tuples(point, self.direccion)
-			if point[0] == self.width: point = (0, point[1])
-			new_snake += (point,)
-		self.snake = new_snake
-		print(self.snake)
-	
-	def run(self):
-		# while not self.finalizar:
-		# self.render()
-		# self.update()
-		# sleep(1)
-		# self.render()
-		# sleep(1)
-		with self.canvas as draw:
-			draw.point((0, 0), fill="white")
-		sleep(1)
-		with self.canvas as draw:
-			draw.point((1, 1), fill="white")
-		sleep(1)
+	def update(self, f_stop):
+		head = add_tuples(self.snake[0], self.direccion)
 
+		if head[0] == self.width: head = (0, head[1]) # borde dercho
+		if head[1] == self.height: head = (head[0], 0) # borde inferior
+
+		if head[0] == -1: head = (self.width - 1, head[1]) # borde izquierdo
+		if head[1] == -1: head = (head[0], self.height - 1) # borde superior
+
+		self.snake = [head] + self.snake[:-1]
+
+		self.render()
+		if not f_stop.is_set():
+			# call update again in 1 seconds
+			threading.Timer(1, self.update, [f_stop]).start()
+
+
+	def move_right(self):
+		if not self.direccion == self.LEFT:
+			self.direccion = self.RIGHT
+
+	def move_left(self):
+		if not self.direccion == self.RIGHT:
+			self.direccion = self.LEFT
+
+	def move_up(self):
+		if not self.direccion == self.DOWN:
+			self.direccion = self.UP
+
+	def move_down(self):
+		if not self.direccion == self.UP:
+			self.direccion = self.DOWN
 
 def to_tuple(t):
     return tuple(map(to_tuple, t)) if isinstance(t, (list, tuple)) else t

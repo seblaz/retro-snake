@@ -58,7 +58,7 @@ class Snake:
 		self.render()
 		if not f_stop.is_set():
 			# call update again in 1 seconds
-			threading.Timer(1, self.update, [f_stop]).start()
+			threading.Timer(0.7, self.update, [f_stop]).start()
 
 
 	def move_right(self):

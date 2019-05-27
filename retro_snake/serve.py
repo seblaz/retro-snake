@@ -7,6 +7,8 @@ from flask import jsonify
 from retro_snake.snake import Snake
 
 
+SERVER = "http://192.168.0.143:5000"
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,7 +22,7 @@ def hello(name=None):
 
 @app.route('/snake')
 def snake():
-    return render_template('snake.html', score = 0)
+    return render_template('snake.html', score = 0, server=SERVER)
 
 @app.route('/snake/up')
 def snake_up():
@@ -56,4 +58,5 @@ f_stop = threading.Event()
 snake.update(f_stop) # start calling update now and every 1 sec thereafter
 
 # start the server
-app.run()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')

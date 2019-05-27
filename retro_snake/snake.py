@@ -12,21 +12,60 @@ from retro_snake.matriz import get_canvas
 class Snake:
 
 	def __init__(self, width=8, height=8):
+		# canvas: https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html#module-PIL.ImageDraw
+		self.width = width
+		self.height = height
 		self.canvas = get_canvas(width, height)
-		self.key = "right"
+		self.direccion = (1, 0)  # right
+		self.finalizar = False
 		
-		initial_center = [(int)(width/2), (int)(height/2)]
-		head = [initial_center[0]+1, initial_center[1]]
-		tail = [initial_center[0]-2, initial_center[1]]
-		self.snake = [head, tail]
+		center_width = (int)(width/2)
+		center_height = (int)(height/2)
+		head = (center_width, center_height)
+		center = (center_width - 1, center_height)
+		tail = (center_width - 2, center_height)
+		self.snake = (tail, center, head)
+		self.food = (2, 2)
 	
 	def render(self):
 		with self.canvas as draw:
-			draw.line(to_tuple(self.snake), fill="white")
-		sleep(10)
+			# draw.line(to_tuple(self.snake), fill="white")
+			# draw.point(to_tuple(self.food), fill="white")
+			# draw.line(self.snake, fill="white")
+			# draw.point(self.food, fill="white")
+			for point in self.snake:
+				draw.point(point, fill="white")
+
+	
+	def update(self):
+		new_snake = ()
+		for point in self.snake:
+			point = add_tuples(point, self.direccion)
+			if point[0] == self.width: point = (0, point[1])
+			new_snake += (point,)
+		self.snake = new_snake
+		print(self.snake)
+	
+	def run(self):
+		# while not self.finalizar:
+		# self.render()
+		# self.update()
+		# sleep(1)
+		# self.render()
+		# sleep(1)
+		with self.canvas as draw:
+			draw.point((0, 0), fill="white")
+		sleep(1)
+		with self.canvas as draw:
+			draw.point((1, 1), fill="white")
+		sleep(1)
+
 
 def to_tuple(t):
     return tuple(map(to_tuple, t)) if isinstance(t, (list, tuple)) else t
+
+def add_tuples(t1, t2):
+    return (t1[0]+t2[0], t1[1]+t2[1])
 
 
 # snake = [[4,10], [4,9], [4,8]]                                     # Initial snake co-ordinates

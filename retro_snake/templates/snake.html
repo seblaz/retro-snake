@@ -27,7 +27,7 @@
         function pushUp(){
             $.ajax({
                 method: "GET",
-                url: "{{server}}/snake/up",
+                url: "snake/up",
                 })
                 .done(function() {
                     console.log("Up Pushed");
@@ -36,7 +36,7 @@
             function pushDown(){
             $.ajax({
                 method: "GET",
-                url: "{{server}}/snake/down",
+                url: "snake/down",
                 })
                 .done(function() {
                     console.log("Down Pushed");
@@ -45,7 +45,7 @@
             function pushRight(){
             $.ajax({
                 method: "GET",
-                url: "{{server}}/snake/right",
+                url: "snake/right",
                 })
                 .done(function() {
                     console.log("Right Pushed");
@@ -54,7 +54,7 @@
             function pushLeft(){
             $.ajax({
                 method: "GET",
-                url: "{{server}}/snake/left",
+                url: "snake/left",
                 })
                 .done(function() {
                     console.log("Left Pushed");

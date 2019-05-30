@@ -7,8 +7,6 @@ from flask import jsonify
 from retro_snake.snake import Snake
 
 
-SERVER = "http://192.168.0.143:5000"
-
 app = Flask(__name__)
 
 @app.route('/')

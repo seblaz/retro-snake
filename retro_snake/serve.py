@@ -20,7 +20,7 @@ def hello(name=None):
 
 @app.route('/snake')
 def snake():
-    return render_template('snake.html', score = 0, server=SERVER)
+    return render_template('snake.html', score = 0)
 
 @app.route('/snake/up')
 def snake_up():

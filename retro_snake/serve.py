@@ -51,7 +51,7 @@ def snake_right():
     return resp
 
 
-snake = Snake(8, 8)
+snake = Snake(16, 16)
 f_stop = threading.Event()
 snake.update(f_stop) # start calling update now and every 1 sec thereafter
 

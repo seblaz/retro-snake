@@ -5,9 +5,12 @@ import asyncio
 import random
 import sys
 
+from luma.core.virtual import viewport
+from luma.core.render import canvas
+from PIL import ImageFont
 import pygame
 
-from retro_snake.matriz import get_canvas
+from retro_snake.matriz import get_device
 
 
 
@@ -27,25 +30,37 @@ class Snake:
 		# canvas: https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html#module-PIL.ImageDraw
 		self.width = width
 		self.height = height
-		self.canvas = get_canvas(width, height)
+		self.device = get_device(width, height)
 		self.direccion = self.RIGHT
-		self.finalizar = False
+		self.died = True
 		
 		center_width = (int)(width/2)
 		center_height = (int)(height/2)
 		head = (center_width, center_height)
 		center = (center_width - 1, center_height)
 		tail = (center_width - 2, center_height)
-		self.snake = [head, center, tail]
+		self.snake = [head, center, tail] # list of tuples
 		self.generate_random_food()
 	
 	def render(self):
-		with self.canvas as draw:
-			draw.rectangle(((0, 0), draw.im.size), fill="black", outline="black")
-			draw.point(self.food, fill="white")
-			for point in self.snake:
-				draw.point(point, fill="white")
+		virtual = viewport(self.device, width=200, height=200)
+		if self.died:
+			with canvas(virtual) as draw:
+				draw.rectangle(((0, 0), draw.im.size), fill="black", outline="black")
+				font = ImageFont.truetype('retro_snake/fonts/pixelmix.ttf', 8)
+				draw.multiline_text((2, 0), "Game\nover", fill="white", font=font, spacing=-1, align='center')
+			
+			while True:
+				for offset in range(12):
+					virtual.set_position((offset, 0))
+					sleep(0.5)
 
+		else:
+			with canvas(virtual) as draw:
+				draw.rectangle(((0, 0), draw.im.size), fill="black", outline="black")
+				draw.point(self.food, fill="white")
+				for point in self.snake:
+					draw.point(point, fill="white")
 	
 	def update(self, f_stop):
 		head = add_tuples(self.snake[0], self.direccion)
@@ -58,14 +73,18 @@ class Snake:
 
 		self.snake = [head] + self.snake[:-1]
 
-		if head[0] == self.food[0] and head[1] == self.food[1]:
+		if head[0] == self.food[0] and head[1] == self.food[1]: # snake eats food
 			tail = add_tuples(self.snake[-1], self.NONE)
 			self.snake = self.snake + [tail]
 			self.generate_random_food()
 
+		# Check if snake eats itself
 		for point in self.snake[1:]:
 			if head[0] == point[0] and head[1] == point[1]:
-				f_stop.set()
+				self.died = True
+				print("died!")
+				self.render()
+				return
 
 		self.render()
 		if not f_stop.is_set():

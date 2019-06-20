@@ -31,8 +31,8 @@ class Snake:
 		self.width = width
 		self.height = height
 		self.device = get_device(width, height)
-		self.direccion = self.RIGHT
-		self.died = True
+		self.direccion = self.next_direccion = self.RIGHT
+		self.died = False
 		
 		center_width = (int)(width/2)
 		center_height = (int)(height/2)
@@ -63,7 +63,8 @@ class Snake:
 					draw.point(point, fill="white")
 	
 	def update(self, f_stop):
-		head = add_tuples(self.snake[0], self.direccion)
+		head = add_tuples(self.snake[0], self.next_direccion)
+		self.direccion = self.next_direccion
 
 		if head[0] == self.width: head = (0, head[1]) # borde derecho
 		if head[1] == self.height: head = (head[0], 0) # borde inferior
@@ -82,9 +83,6 @@ class Snake:
 		for point in self.snake[1:]:
 			if head[0] == point[0] and head[1] == point[1]:
 				self.died = True
-				print("died!")
-				self.render()
-				return
 
 		self.render()
 		if not f_stop.is_set():
@@ -94,19 +92,19 @@ class Snake:
 
 	def move_right(self):
 		if not self.direccion == self.LEFT:
-			self.direccion = self.RIGHT
+			self.next_direccion = self.RIGHT
 
 	def move_left(self):
 		if not self.direccion == self.RIGHT:
-			self.direccion = self.LEFT
+			self.next_direccion = self.LEFT
 
 	def move_up(self):
 		if not self.direccion == self.DOWN:
-			self.direccion = self.UP
+			self.next_direccion = self.UP
 
 	def move_down(self):
 		if not self.direccion == self.UP:
-			self.direccion = self.DOWN
+			self.next_direccion = self.DOWN
 
 	def generate_random_food(self):
 		self.food = random_tuple(self.width, self.height)

@@ -1,4 +1,5 @@
 from time import sleep
+from random import random
 import threading
 import asyncio
 import random
@@ -20,6 +21,7 @@ class Snake:
 	LEFT = (-1, 0)
 	UP = (0, -1)
 	DOWN = (0, 1)
+	NONE = (0,0)
 
 	def __init__(self, width=8, height=8):
 		# canvas: https://pillow.readthedocs.io/en/latest/reference/ImageDraw.html#module-PIL.ImageDraw
@@ -35,11 +37,12 @@ class Snake:
 		center = (center_width - 1, center_height)
 		tail = (center_width - 2, center_height)
 		self.snake = [head, center, tail]
-		self.food = (2, 2)
+		self.generate_random_food()
 	
 	def render(self):
 		with self.canvas as draw:
 			draw.rectangle(((0, 0), draw.im.size), fill="black", outline="black")
+			draw.point(self.food, fill="white")
 			for point in self.snake:
 				draw.point(point, fill="white")
 
@@ -47,13 +50,22 @@ class Snake:
 	def update(self, f_stop):
 		head = add_tuples(self.snake[0], self.direccion)
 
-		if head[0] == self.width: head = (0, head[1]) # borde dercho
+		if head[0] == self.width: head = (0, head[1]) # borde derecho
 		if head[1] == self.height: head = (head[0], 0) # borde inferior
 
 		if head[0] == -1: head = (self.width - 1, head[1]) # borde izquierdo
 		if head[1] == -1: head = (head[0], self.height - 1) # borde superior
 
 		self.snake = [head] + self.snake[:-1]
+
+		if head[0] == self.food[0] and head[1] == self.food[1]:
+			tail = add_tuples(self.snake[-1], self.NONE)
+			self.snake = self.snake + [tail]
+			self.generate_random_food()
+
+		for point in self.snake[1:]:
+			if head[0] == point[0] and head[1] == point[1]:
+				f_stop.set()
 
 		self.render()
 		if not f_stop.is_set():
@@ -77,11 +89,22 @@ class Snake:
 		if not self.direccion == self.UP:
 			self.direccion = self.DOWN
 
+	def generate_random_food(self):
+		self.food = random_tuple(self.width, self.height)
+		while(self.food in self.snake):
+			self.food = random_tuple(self.width, self.height)
+
+
+
 def to_tuple(t):
     return tuple(map(to_tuple, t)) if isinstance(t, (list, tuple)) else t
 
 def add_tuples(t1, t2):
     return (t1[0]+t2[0], t1[1]+t2[1])
+
+def random_tuple(t1_max, t2_max):
+	return (int(random.random()*t1_max),int(random.random()*t2_max))
+
 
 
 # snake = [[4,10], [4,9], [4,8]]                                     # Initial snake co-ordinates

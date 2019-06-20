@@ -1,27 +1,30 @@
 <!doctype html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Snake Game </title>
+    <meta name="viewport" content= "width=device-width, user-scalable=no">
+    <title>Snake Game</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/controls.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body>
-    <h1> SNAKE GAME </h1>
+    <h1 class="title">Snake game</h1>
     <div class='container'>
         <div class='row justify-content-center'>
-            <button type="button" class="btn btn-info" style="height:50px;width: 100px;margin: 10px" id="up">Up</button>
+            <button type="button" class="btn btn-dark" style="height:50px;width: 100px;margin: 10px" id="up">Up</button>
         </div>
         <div class="row justify-content-center">
-            <button type="button" class="btn btn-info" style="height:50px;width: 100px;margin: 10px" id="left">Left</button>
-            <button type="button" class="btn btn-info" style="height:50px;width: 100px;margin: 10px" id="right">Right</button>
+            <button type="button" class="btn btn-dark" style="height:50px;width: 100px;margin: 10px" id="left">Left</button>
+            <button type="button" class="btn btn-dark" style="height:50px;width: 100px;margin: 10px" id="right">Right</button>
         </div>
         <div class="row justify-content-center">
-            <button type="button" class="btn btn-info" style="height:50px;width: 100px;margin: 10px" id="down">Down</button>
+            <button type="button" class="btn btn-dark" style="height:50px;width: 100px;margin: 10px" id="down">Down</button>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script>
         function pushUp(){
             $.ajax({
@@ -64,5 +67,4 @@
         $("#left").click(pushLeft)
         $("#right").click(pushRight)
     </script>
-
 </body>

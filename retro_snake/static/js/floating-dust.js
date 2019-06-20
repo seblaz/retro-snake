@@ -20,7 +20,7 @@ var target = [];
 var id;
 var isScroll = false;
 
-var imageURLArr = ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbpGuu-dmCVQmmWpTn3YuYw2UGxAf55rhjcgXTmy-eME_OM_M2dQ"]
+var imageURLArr = ["static/img/home-snake.png"]
 
 var perspectiveMatrix
 var randomTargetXArr = [], randomTargetYArr = [];
@@ -50,6 +50,7 @@ function init() {
 };
 
 function onLoadImageHandler(image, canvas, ctx, number) {
+    console.log("Hola");        
     var size = image.width;
     canvas.width = size;
     canvas.height = size;

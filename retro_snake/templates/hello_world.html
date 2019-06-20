@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+  <title>Welcome</title>
+  <meta name="viewport" content= "width=device-width, user-scalable=no">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/floating-dust.css') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+</head>
+<body>
+  
+  <a href="snake">
+    <canvas id="c"></canvas>
+  </a>
+  
+  <script id="shader-fs" type="x-shader/x-fragment">
+    #ifdef GL_ES
+      precision highp float;
+      #endif
+    void main(void) {
+     gl_FragColor = vec4(0.2, 0.3, 0.4, 1.0);
+    }
+  
+  </script>
+  <script id="shader-vs" type="x-shader/x-vertex">
+  attribute vec3 vertexPosition;
+  
+  uniform mat4 modelViewMatrix;
+  uniform mat4 perspectiveMatrix;
+  
+  void main(void) {
+  gl_Position = perspectiveMatrix * modelViewMatrix * vec4(  vertexPosition, 1.0);
+  }
+  </script>
+  <script src="{{url_for('static', filename='js/floating-dust.js')}}"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+</body>

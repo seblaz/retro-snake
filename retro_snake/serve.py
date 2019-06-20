@@ -10,13 +10,8 @@ from retro_snake.snake import Snake
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('helloWorld.html', name=name)
+def hello():
+    return render_template('hello_world.html')
 
 @app.route('/snake')
 def snake():
@@ -57,4 +52,4 @@ snake.update(f_stop) # start calling update now and every 1 sec thereafter
 
 # start the server
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)

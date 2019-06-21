@@ -11,9 +11,10 @@ def get_device(width, height):
     devuelve la misma, en caso contrario devuelve un dispositivo de
     simulación de pygame.
     """
-    #try:
-        #serial = spi(port=0, device=0, gpio=noop())
-        #device = max7219(serial, width=width, height=height)
-    #except DeviceNotFoundError:
-    device = pygame(width=width, height=height, mode="1", transform='led_matrix')
+    # try:
+    #     serial = spi(port=0, device=0, gpio=noop())
+    #     device = max7219(serial, width=width, height=height)
+    # except DeviceNotFoundError:
+    device = pygame(width=width, height=height,
+                    mode="1", transform='led_matrix')
     return device

@@ -27,7 +27,7 @@ class Snake:
         self.height = height
         self.device = get_device(width, height)
         self.direccion = self.next_direccion = self.RIGHT
-        self.died = True
+        self.died = False
 
         # Create snake
         center_width = (int)(width/2)

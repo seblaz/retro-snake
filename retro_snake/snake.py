@@ -65,10 +65,6 @@ class Snake:
 
     def update(self, f_stop=None):
         """Updates the game model."""
-        if not f_stop.is_set() and not self.died:
-            # call update again in x seconds
-            threading.Timer(0.7, self.update, [f_stop]).start()
-
         head = add_tuples(self.snake[0], self.next_direccion)
         self.direccion = self.next_direccion
 
@@ -96,6 +92,9 @@ class Snake:
                 self.died = True
 
         self.render()
+        if not f_stop.is_set() and not self.died:
+            # call update again in x seconds
+            threading.Timer(0.7, self.update, [f_stop]).start()
 
     def move_right(self):
         """Sets next direction right."""

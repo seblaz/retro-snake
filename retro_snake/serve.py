@@ -56,4 +56,4 @@ if __name__ == '__main__':
     snake = Snake(16, 16)  # start the game
     f_stop = threading.Event()
     snake.update(f_stop)  # start calling update now and every 1 sec thereafter
-    app.run(host='0.0.0.0', debug=True)  # start the server
+    app.run(host='0.0.0.0')  # start the server

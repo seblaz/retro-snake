@@ -1,9 +1,9 @@
 # Retro Snake
 
-Permite controlar y mostrar el clásico juego Snake en una matriz de leds a través de una [Raspberry Pi](http://raspberrypi.org/).
+Permite mostrar el clásico juego Snake en una matriz de leds a través de una [Raspberry Pi](http://raspberrypi.org/). Es controlado por un smarthphone o cualquier dispositivo con un navegador inalambricamente.
 
 <p align="center">
-    <img alt="matriz" src="images/matriz.png"/>
+    <img alt="matriz" src="images/combinado.png"/>
 </p>
 
 ## Instalación

@@ -6,6 +6,9 @@ Permite mostrar el clásico juego Snake en una matriz de leds a través de una [
     <img alt="matriz" src="images/combinado.png"/>
 </p>
 
+## Prerequisitos
+ - [Python 3](https://www.python.org/)
+ 
 ## Instalación
  Se recomienda utilizar un [virtual environment](https://virtualenv.pypa.io/en/latest/) para realizar la instalación.
 

@@ -10,9 +10,11 @@ Permite mostrar el clásico juego Snake en una matriz de leds a través de una [
  - [Python 3](https://www.python.org/)
  
 ## Instalación
- Se recomienda utilizar un [virtual environment](https://virtualenv.pypa.io/en/latest/) para realizar la instalación.
+Se recomienda utilizar un [virtual environment](https://virtualenv.pypa.io/en/latest/) para realizar la instalación.
 
     $ pip install -r requirements.txt
+
+Si se está instalando en la Raspberry Pi, además seguir las instrucciones [aquí](https://luma-led-matrix.readthedocs.io/en/latest/install.html).
 
 ## Ejecución
 
